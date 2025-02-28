@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import 'tailwindcss';
+
+@keyframes shimmer {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@theme {
+  --font-funnel-sans: 'Funnel Sans', serif;
+  --animate-shimmer: shimmer 4s linear infinite;
+  --color-monarch-50: #fcdfe4;
+  --color-monarch-100: #f9c3ce;
+  --color-monarch-200: #f3879c;
+  --color-monarch-300: #ec4667;
+  --color-monarch-400: #da163d;
+  --color-monarch-500: #9e102c;
+  --color-monarch-600: #7d0d23;
+  --color-monarch-700: #5d091a;
+  --color-monarch-800: #410712;
+  --color-monarch-900: #200309;
+  --color-monarch-950: #0e0104;
+
+  --color-vulcan-50: #eae8ed;
+  --color-vulcan-100: #d2ced9;
+  --color-vulcan-200: #a8a0b6;
+  --color-vulcan-300: #7b6f90;
+  --color-vulcan-400: #51495f;
+  --color-vulcan-500: #28242f;
+  --color-vulcan-600: #201d26;
+  --color-vulcan-700: #19161d;
+  --color-vulcan-800: #110f14;
+  --color-vulcan-900: #070709;
+  --color-vulcan-950: #050406;
+}
+
+.bg-shimmer-monarch {
+  background: linear-gradient(
+    120deg,
+    var(--color-monarch-900),
+    50%,
+    var(--color-monarch-400),
+    55%,
+    var(--color-monarch-900)
+  );
+  background-size: 200% 100%;
+}
+
+.bg-shimmer-vulcan {
+  background: linear-gradient(
+    120deg,
+    var(--color-vulcan-900),
+    50%,
+    var(--color-vulcan-400),
+    55%,
+    var(--color-vulcan-900)
+  );
+  background-size: 200% 100%;
+}
