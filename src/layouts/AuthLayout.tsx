@@ -7,7 +7,7 @@ export function AuthLayout() {
         <Outlet />
       </div>
       <img
-        className="object-cover sm:w-1/2 sm:rounded-l-full"
+        className="rounded-l-full object-cover sm:w-1/2"
         src="/fondo.webp"
         alt="Fondo del Login"
         loading="lazy"

@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react';
 import { Usuario } from '../interfaces/Usuario';
+import { VITE_BACKEND_URL } from '../App';
 
 type TypeResponse = 'success' | 'error';
 
@@ -28,9 +29,8 @@ export const AuthContext = createContext<AuthContextData>({
 });
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const { VITE_BACKEND_URL } = import.meta.env;
-  const token = localStorage.getItem('token');
   const [user, setUser] = useState<Usuario | null>(null);
+  const token = localStorage.getItem('token');
 
   const handleLogin = useCallback(
     async (login: {
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const handleProfile = useCallback(async () => {
-    if (user || !token) return;
+    if (!token) return;
 
     const response = await fetch(`${VITE_BACKEND_URL}/auth/profile`, {
       headers: {
@@ -72,7 +72,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [token]);
 
   useEffect(() => {
-    handleProfile();
+    !user?._id && handleProfile();
   }, [token]);
 
   return <AuthContext value={{ user, handleLogin }}>{children}</AuthContext>;

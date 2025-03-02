@@ -21,6 +21,7 @@ export function LoginPage() {
     toast[type](response, {
       position: 'bottom-right',
       icon: '🔐',
+      className: 'text-sm font-medium',
     });
 
     if (type === 'success') navigate('/admin/clientes');
@@ -31,27 +32,27 @@ export function LoginPage() {
   const [_, submitAction, isPending] = useActionState(loginAction, '');
 
   return (
-    <form className="flex w-3/4 flex-col gap-y-4 p-4" action={submitAction}>
+    <form className="flex w-2/3 flex-col gap-y-4" action={submitAction}>
       <div className="flex flex-col gap-y-2">
-        <h1 className="text-center text-2xl font-extrabold">
+        <h1 className="text-lust-800 text-center text-2xl font-extrabold">
           Sistema de Gestión de Renta de Vehículos
         </h1>
-        <small className="text-vulcan-500 text-center text-sm">
-          Este sistema permite gestionar la renta de vehículos de una empresa
-          mediante el registro de clientes, vehículos y rentas.
+        <small className="text-vulcan-500 text-center text-xs">
+          Este sistema permite gestionar la reserva de vehículos de una empresa
+          mediante el registro de clientes, vehículos y reservas.
         </small>
       </div>
       <div className="relative">
         {/* Contact Email Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-monarch-900 absolute inset-y-0 left-2 my-auto size-5"
+          className="fill-lust-800 absolute inset-y-0 left-3 my-auto size-5"
           viewBox="0 -960 960 960"
         >
           <path d="M528-480h288v-192H528zm144-41-108-72v-43l108 72 108-72v43zM72-144q-30 0-51-21T0-216v-528q0-30 21-51t51-21h816q30 0 51 21t21 51v528q0 30-21 51t-51 21zm264-240q50 0 85-35t35-85-35-85-85-35-85 35-35 85 35 85 85 35M72-216h521q-51-54-116-87t-141-33-144 33-120 87" />
         </svg>
         <input
-          className="border-vulcan-400 outline-monarch-800 w-full rounded-lg border py-1.5 pr-1.5 pl-9"
+          className="border-vulcan-200 outline-lust-800 w-full rounded-lg border py-1.5 pr-1.5 pl-10 text-sm"
           id="email"
           type="email"
           name="email"
@@ -63,13 +64,13 @@ export function LoginPage() {
         {/* Password Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-monarch-900 absolute inset-y-0 left-2 my-auto size-5"
+          className="fill-lust-800 absolute inset-y-0 left-3 my-auto size-5"
           viewBox="0 -960 960 960"
         >
           <path d="M288-360q50 0 85-35t35-85-35-85-85-35-85 35-35 85 35 85 85 35m0 120q-100 0-170-70T48-480t70-170 170-70q78 0 141 47t87 121h324l72 72-132 159-84-87-72 72-72-72h-36q-24 75-87 122-63 46-141 46" />
         </svg>
         <input
-          className="border-vulcan-400 outline-monarch-800 w-full rounded-lg border px-9 py-1.5"
+          className="border-vulcan-200 outline-lust-800 w-full rounded-lg border px-10 py-1.5 text-sm"
           id="password"
           name="password"
           type={showPassword ? 'text' : 'password'}
@@ -80,7 +81,7 @@ export function LoginPage() {
         {/* Show Password Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-monarch-900 absolute inset-y-0 right-2 my-auto size-5 cursor-pointer"
+          className="fill-lust-800 absolute inset-y-0 right-3 my-auto size-5 cursor-pointer"
           viewBox="0 -960 960 960"
           onClick={() => setShowPassword(!showPassword)}
         >
@@ -95,13 +96,13 @@ export function LoginPage() {
         moreStyles="flex gap-x-2 items-center justify-center"
         disabled={isPending}
       >
-        Iniciar Sesión
+        Iniciar sesión
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="fill-vulcan-50 size-6"
-          viewBox="0 -960 960 960"
+          viewBox="0 0 24 24"
         >
-          <path d="m24-424 18-72h198l-18 72zm252 256q-50 0-85-35t-35-85H72l30-88h157l34-136h74l42-168H210l14-40q8-22 27-35t41-13h452l-36 144h84l120 168-48 168h-48q0 50-35 85t-85 35-85-35-35-85H396q0 50-35 85t-85 35M96-560l18-72h234l-18 72zm180 320q20 0 34-14t14-34-14-34-34-14-34 14-14 34 14 34 34 14m420 0q20 0 34-14t14-34-14-34-34-14-34 14-14 34 14 34 34 14m-36-192h170l3-11-78-109h-65z" />
+          <path d="M14 5a1 1 0 0 1 .7.3l3.8 4.7h.5a3 3 0 0 1 3 2.8V17a1 1 0 0 1-1 1h-1.2a3 3 0 0 1-5.6 0H9.8a3 3 0 0 1-5.6 0H3a1 1 0 0 1-1-1v-6.3l2-5A1 1 0 0 1 5 5zM7 16a1 1 0 1 0 0 2 1 1 0 0 0 0-2m10 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-6-9H5.7l-1.2 3H11zm2.5 0H13v3h3z" />
         </svg>
       </ShimmerButton>
       <Toaster />

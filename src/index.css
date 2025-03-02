@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@font-face {
+  font-family: 'Funnel Sans';
+  src: url(https://fonts.gstatic.com/s/funnelsans/v1/OpNIno8Dg9bX6Bsp3Wq69Tpyfhg.woff2)
+    format('woff2');
+}
+
 @import 'tailwindcss';
 
 @keyframes shimmer {
@@ -10,20 +15,41 @@
   }
 }
 
+@keyframes slideInRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+    display: none;
+  }
+}
+
 @theme {
   --font-funnel-sans: 'Funnel Sans', serif;
   --animate-shimmer: shimmer 4s linear infinite;
-  --color-monarch-50: #fcdfe4;
-  --color-monarch-100: #f9c3ce;
-  --color-monarch-200: #f3879c;
-  --color-monarch-300: #ec4667;
-  --color-monarch-400: #da163d;
-  --color-monarch-500: #9e102c;
-  --color-monarch-600: #7d0d23;
-  --color-monarch-700: #5d091a;
-  --color-monarch-800: #410712;
-  --color-monarch-900: #200309;
-  --color-monarch-950: #0e0104;
+  --animate-slide-out-left: slideOutLeft 0.6s forwards;
+  --animate-slide-in-right: slideInRight 0.6s forwards;
+  --color-lust-50: #fedddf;
+  --color-lust-100: #fcbabf;
+  --color-lust-200: #f9767f;
+  --color-lust-300: #f62d3a;
+  --color-lust-400: #d20916;
+  --color-lust-500: #8e060e;
+  --color-lust-600: #71050c;
+  --color-lust-700: #530409;
+  --color-lust-800: #3b0206;
+  --color-lust-900: #1d0103;
+  --color-lust-950: #0f0102;
 
   --color-vulcan-50: #eae8ed;
   --color-vulcan-100: #d2ced9;
@@ -38,14 +64,24 @@
   --color-vulcan-950: #050406;
 }
 
-.bg-shimmer-monarch {
+::-webkit-scrollbar {
+  width: calc(var(--spacing) * 1.5);
+  height: calc(var(--spacing) * 1.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-vulcan-200);
+  border-radius: var(--radius-lg);
+}
+
+.bg-shimmer-lust {
   background: linear-gradient(
     120deg,
-    var(--color-monarch-900),
+    var(--color-lust-900),
     50%,
-    var(--color-monarch-400),
+    var(--color-lust-400),
     55%,
-    var(--color-monarch-900)
+    var(--color-lust-900)
   );
   background-size: 200% 100%;
 }

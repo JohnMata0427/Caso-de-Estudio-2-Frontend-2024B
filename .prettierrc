@@ -2,5 +2,8 @@
   "singleQuote": true,
   "tabWidth": 2,
   "htmlWhitespaceSensitivity": "ignore",
-  "plugins": ["prettier-plugin-tailwindcss", "prettier-plugin-organize-attributes"]
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "prettier-plugin-organize-attributes"
+  ]
 }
