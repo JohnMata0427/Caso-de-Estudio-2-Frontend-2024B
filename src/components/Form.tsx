@@ -1,6 +1,6 @@
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { INPUT_FIELDS, type Title } from '@/consts/Keys';
 import { capitalize, separateAndCapitalize } from '@/helpers/Text';
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ShimmerButton } from './ShimmerButton';
 
 export const Form = memo(({ title = 'clientes' }: { title: Title }) => {
