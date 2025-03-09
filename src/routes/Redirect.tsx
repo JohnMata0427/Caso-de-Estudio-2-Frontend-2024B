@@ -1,14 +1,20 @@
-import { ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
-export function PrivateRoute({ children }: { children: ReactNode }) {
+export const PrivateRoute = ({ children }: { children: React.ReactNode }) =>
+  isAuthenticated() ? children : <Navigate to="/auth/login" replace />;
+
+export const PublicRoute = ({ children }: { children: React.ReactNode }) =>
+  isAuthenticated() ? <Navigate to="/admin/clientes" replace /> : children;
+
+function isAuthenticated() {
   const token = localStorage.getItem('token');
+  if (!token) return false;
 
-  return token ? children : <Navigate to="/auth/login" replace />;
-}
+  const { exp = 0 } = jwtDecode(token) as { exp: number };
+  const isAuth = Date.now() < exp * 1000;
 
-export function PublicRoute({ children }: { children: ReactNode }) {
-  const token = localStorage.getItem('token');
+  if (!isAuth) localStorage.removeItem('token');
 
-  return token ? <Navigate to="/admin/clientes" replace /> : children;
+  return isAuth;
 }

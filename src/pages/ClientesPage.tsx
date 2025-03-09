@@ -1,7 +1,7 @@
+import { Loading } from '@/components/Loading';
+import { Table } from '@/components/Table';
+import { ClientesContext } from '@/contexts/ClientesContext';
 import { use } from 'react';
-import { ClientesContext } from '../contexts/ClientesContext';
-import { Table } from '../components/Table';
-import { Loading } from '../components/Loading';
 
 export function ClientesPage() {
   document.title =

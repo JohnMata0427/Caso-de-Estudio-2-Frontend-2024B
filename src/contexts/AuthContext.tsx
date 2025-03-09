@@ -1,12 +1,6 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { Usuario } from '../interfaces/Usuario';
-import { VITE_BACKEND_URL } from '../App';
+import { VITE_BACKEND_URL } from '@/App';
+import { Usuario } from '@/interfaces/Usuario';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 type TypeResponse = 'success' | 'error';
 
@@ -28,7 +22,7 @@ export const AuthContext = createContext<AuthContextData>({
   handleLogin: async () => ({ response: '', type: 'error' }),
 });
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<Usuario | null>(null);
   const token = localStorage.getItem('token');
 

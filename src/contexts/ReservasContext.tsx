@@ -1,12 +1,6 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { Reserva } from '../interfaces/Reserva';
-import { VITE_BACKEND_URL } from '../App';
+import { VITE_BACKEND_URL } from '@/App';
+import { Reserva } from '@/interfaces/Reserva';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 interface ReservasResponse {
   response: string;
@@ -32,7 +26,7 @@ export const ReservasContext = createContext<ReservasContextData>({
   handleDeleteReserva: async () => {},
 });
 
-export function ReservasProvider({ children }: { children: ReactNode }) {
+export function ReservasProvider({ children }: { children: React.ReactNode }) {
   const [reservas, setReservas] = useState<Reserva[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const headers = {
@@ -56,7 +50,7 @@ export function ReservasProvider({ children }: { children: ReactNode }) {
     });
     const data = await response.json();
 
-    if (response.ok) setReservas((state) => [...state, data.reserva]);
+    if (response.ok) setReservas(state => [...state, data.reserva]);
 
     return data;
   }, []);
@@ -71,9 +65,7 @@ export function ReservasProvider({ children }: { children: ReactNode }) {
       const data = await response.json();
 
       if (response.ok)
-        setReservas((state) =>
-          state.map((c) => (c._id === id ? data.reserva : c)),
-        );
+        setReservas(state => state.map(c => (c._id === id ? data.reserva : c)));
 
       return data;
     },
@@ -86,7 +78,7 @@ export function ReservasProvider({ children }: { children: ReactNode }) {
       headers,
     });
 
-    setReservas((state) => state.filter((c) => c._id !== id));
+    setReservas(state => state.filter(c => c._id !== id));
   }, []);
 
   useEffect(() => {

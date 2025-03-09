@@ -1,9 +1,9 @@
-import { memo, ReactNode } from 'react';
+import { memo } from 'react';
 
 type Colors = 'lust' | 'vulcan';
 
 interface Props {
-  children: ReactNode;
+  children: React.ReactNode;
   moreStyles?: string;
   onClick?: () => void;
   color?: Colors;
@@ -25,7 +25,7 @@ export const ShimmerButton = memo(
 
     return (
       <button
-        className={`animate-shimmer text-vulcan-50 w-full rounded-lg border-2 font-bold ${colorClasses[color]} bg-[length:200%_100%] px-4 py-2 transition-all duration-400 ${moreStyles} ${disabled ? 'cursor-wait opacity-80' : 'cursor-crosshair hover:opacity-95 active:opacity-90'}`}
+        className={`animate-shimmer text-vulcan-50 rounded-lg border-2 font-bold ${colorClasses[color]} bg-[length:200%_100%] px-4 py-2 transition-all duration-400 ${moreStyles} ${disabled ? 'cursor-wait opacity-80' : 'cursor-pointer hover:opacity-95 active:opacity-90'}`}
         onClick={onClick}
         disabled={disabled}
       >

@@ -1,6 +1,6 @@
 {
   "singleQuote": true,
-  "tabWidth": 2,
+  "arrowParens": "avoid",
   "htmlWhitespaceSensitivity": "ignore",
   "plugins": [
     "prettier-plugin-tailwindcss",

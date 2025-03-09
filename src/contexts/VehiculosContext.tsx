@@ -1,12 +1,6 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { Vehiculo } from '../interfaces/Vehiculo';
-import { VITE_BACKEND_URL } from '../App';
+import { VITE_BACKEND_URL } from '@/App';
+import { Vehiculo } from '@/interfaces/Vehiculo';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 interface VehiculosResponse {
   response: string;
@@ -32,7 +26,7 @@ export const VehiculosContext = createContext<VehiculosContextData>({
   handleDeleteVehiculo: async () => {},
 });
 
-export function VehiculosProvider({ children }: { children: ReactNode }) {
+export function VehiculosProvider({ children }: { children: React.ReactNode }) {
   const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const headers = {
@@ -56,7 +50,7 @@ export function VehiculosProvider({ children }: { children: ReactNode }) {
     });
     const data = await response.json();
 
-    if (response.ok) setVehiculos((state) => [...state, data.vehiculo]);
+    if (response.ok) setVehiculos(state => [...state, data.vehiculo]);
 
     return data;
   }, []);
@@ -71,8 +65,8 @@ export function VehiculosProvider({ children }: { children: ReactNode }) {
       const data = await response.json();
 
       if (response.ok)
-        setVehiculos((state) =>
-          state.map((c) => (c._id === id ? data.vehiculo : c)),
+        setVehiculos(state =>
+          state.map(c => (c._id === id ? data.vehiculo : c)),
         );
 
       return data;
@@ -86,7 +80,7 @@ export function VehiculosProvider({ children }: { children: ReactNode }) {
       headers,
     });
 
-    setVehiculos((state) => state.filter((c) => c._id !== id));
+    setVehiculos(state => state.filter(c => c._id !== id));
   }, []);
 
   useEffect(() => {

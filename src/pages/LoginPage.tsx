@@ -1,7 +1,7 @@
+import { ShimmerButton } from '@/components/ShimmerButton';
+import { AuthContext } from '@/contexts/AuthContext';
 import { use, useActionState, useState } from 'react';
-import { ShimmerButton } from '../components/ShimmerButton';
 import toast, { Toaster } from 'react-hot-toast';
-import { AuthContext } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 export function LoginPage() {

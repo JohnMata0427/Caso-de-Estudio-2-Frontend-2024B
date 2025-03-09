@@ -1,50 +1,20 @@
+import { COLUMN_NAMES, type Title } from '@/consts/Keys';
+import { Cliente } from '@/interfaces/Cliente';
+import { Reserva } from '@/interfaces/Reserva';
+import { Vehiculo } from '@/interfaces/Vehiculo';
 import { memo, useMemo, useState } from 'react';
-import { Cliente } from '../interfaces/Cliente';
-import { Reserva } from '../interfaces/Reserva';
-import { Vehiculo } from '../interfaces/Vehiculo';
+import { Form } from './Form';
 
-type TableTitle = 'clientes' | 'vehiculos' | 'reservas';
 type TableData = Cliente | Vehiculo | Reserva;
 
 interface Props {
-  title: TableTitle;
+  title: Title;
   data: TableData[];
 }
 
-const columns: Record<TableTitle, string[]> = {
-  clientes: [
-    'ID',
-    'Cedula',
-    'Nombre',
-    'Apellido',
-    'Ciudad',
-    'Email',
-    'Dirección',
-    'Teléfono',
-    'Fecha de Nacimiento',
-  ],
-  vehiculos: [
-    'ID',
-    'Marca',
-    'Modelo',
-    'Año',
-    'Placa',
-    'Color',
-    'Tipo de Vehículo',
-    'Kilometraje',
-    'Descripción',
-  ],
-  reservas: [
-    'ID',
-    'Código',
-    'Descripción',
-    'ID del Cliente',
-    'ID del Vehículo',
-  ],
-};
-
 export const Table = memo(({ title, data }: Props) => {
   const [search, setSearch] = useState('');
+  const columns = useMemo(() => COLUMN_NAMES, []);
   const keys = useMemo(
     () => Object.keys(data[0] ?? {}) as (keyof TableData)[],
     [data],
@@ -52,8 +22,8 @@ export const Table = memo(({ title, data }: Props) => {
 
   const filteredData = useMemo(() => {
     return search
-      ? data.filter((item) =>
-          Object.values(item).some((value) =>
+      ? data.filter(item =>
+          Object.values(item).some(value =>
             value.toString().toLowerCase().includes(search.toLowerCase()),
           ),
         )
@@ -62,7 +32,7 @@ export const Table = memo(({ title, data }: Props) => {
 
   return (
     <>
-      <div className="relative">
+      <div className="relative flex justify-between">
         <input
           className="border-vulcan-200 rounded-lg border py-1.5 pr-1.5 pl-8 text-sm"
           onChange={({ target }) => setSearch(target.value)}
@@ -78,13 +48,14 @@ export const Table = memo(({ title, data }: Props) => {
         >
           <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580t75.5-184.5T380-840t184.5 75.5T640-580q0 44-14 83t-38 69l252 252zM380-400q75 0 127.5-52.5T560-580t-52.5-127.5T380-760t-127.5 52.5T200-580t52.5 127.5T380-400" />
         </svg>
+        <Form title={title} />
       </div>
       {filteredData.length > 0 ? (
         <div className="w-[82.5dvw] overflow-auto">
           <table className="w-full table-auto border-collapse text-sm">
             <thead className="bg-vulcan-100">
               <tr className="border-vulcan-100 border-y">
-                {columns[title].map((column) => (
+                {columns[title].map(column => (
                   <th className="p-1.5 text-start text-nowrap" key={column}>
                     {column}
                   </th>
@@ -95,7 +66,7 @@ export const Table = memo(({ title, data }: Props) => {
             <tbody>
               {data.map((item, index) => (
                 <tr className="border-vulcan-100 border-y" key={index}>
-                  {keys.map((key) => {
+                  {keys.map(key => {
                     if ((key as keyof Cliente) === 'fecha_nacimiento') {
                       return (
                         <td className="p-1.5 text-nowrap" key={key}>

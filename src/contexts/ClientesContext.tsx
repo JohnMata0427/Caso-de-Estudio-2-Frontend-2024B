@@ -1,12 +1,6 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
-import { Cliente } from '../interfaces/Cliente';
-import { VITE_BACKEND_URL } from '../App';
+import { VITE_BACKEND_URL } from '@/App';
+import { Cliente } from '@/interfaces/Cliente';
+import { createContext, useCallback, useEffect, useState } from 'react';
 
 interface ClientesResponse {
   response: string;
@@ -16,23 +10,23 @@ interface ClientesResponse {
 interface ClientesContextData {
   clientes: Cliente[];
   loadingData: boolean;
-  handleCreateCliente: (cliente: Cliente) => Promise<ClientesResponse>;
+  handleCreateCliente: (cliente: Cliente) => Promise<Partial<ClientesResponse>>;
   handleUpdateCliente: (
     id: string,
     cliente: Cliente,
-  ) => Promise<ClientesResponse>;
+  ) => Promise<Partial<ClientesResponse>>;
   handleDeleteCliente: (id: string) => Promise<void>;
 }
 
 export const ClientesContext = createContext<ClientesContextData>({
   clientes: [],
   loadingData: true,
-  handleCreateCliente: async () => ({}) as ClientesResponse,
-  handleUpdateCliente: async () => ({}) as ClientesResponse,
+  handleCreateCliente: async () => ({}),
+  handleUpdateCliente: async () => ({}),
   handleDeleteCliente: async () => {},
 });
 
-export function ClientesProvider({ children }: { children: ReactNode }) {
+export function ClientesProvider({ children }: { children: React.ReactNode }) {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loadingData, setLoadingData] = useState(true);
   const headers = {
@@ -56,7 +50,7 @@ export function ClientesProvider({ children }: { children: ReactNode }) {
     });
     const data = await response.json();
 
-    if (response.ok) setClientes((state) => [...state, data.cliente]);
+    if (response.ok) setClientes(state => [...state, data.cliente]);
 
     return data;
   }, []);
@@ -71,9 +65,7 @@ export function ClientesProvider({ children }: { children: ReactNode }) {
       const data = await response.json();
 
       if (response.ok)
-        setClientes((state) =>
-          state.map((c) => (c._id === id ? data.cliente : c)),
-        );
+        setClientes(state => state.map(c => (c._id === id ? data.cliente : c)));
 
       return data;
     },
@@ -86,7 +78,7 @@ export function ClientesProvider({ children }: { children: ReactNode }) {
       headers,
     });
 
-    setClientes((state) => state.filter((c) => c._id !== id));
+    setClientes(state => state.filter(c => c._id !== id));
   }, []);
 
   useEffect(() => {

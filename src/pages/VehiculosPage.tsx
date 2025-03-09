@@ -1,7 +1,7 @@
+import { Loading } from '@/components/Loading';
+import { Table } from '@/components/Table';
+import { VehiculosContext } from '@/contexts/VehiculosContext';
 import { use } from 'react';
-import { VehiculosContext } from '../contexts/VehiculosContext';
-import { Table } from '../components/Table';
-import { Loading } from '../components/Loading';
 
 export function VehiculosPage() {
   document.title =

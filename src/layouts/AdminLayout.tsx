@@ -1,7 +1,7 @@
+import { NavBar } from '@/components/NavBar';
+import { AuthContext } from '@/contexts/AuthContext';
 import { use, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../contexts/AuthContext';
-import { NavBar } from '../components/NavBar';
 
 export function AdminLayout() {
   const [showMenu, setShowMenu] = useState(true);
@@ -70,11 +70,9 @@ export function AdminLayout() {
           </h3>
           <article className="flex h-13 flex-col p-2">
             <h4 className="text-vulcan-700 text-sm font-medium">
-              {user?.nombre ?? 'John'} {user?.apellido ?? 'Mata'}
+              {user?.nombre} {user?.apellido}
             </h4>
-            <p className="text-vulcan-500 text-xs">
-              {user?.email ?? 'jhonmata0427@gmail.com'}
-            </p>
+            <p className="text-vulcan-500 text-xs">{user?.email}</p>
           </article>
         </div>
       </header>

@@ -1,7 +1,7 @@
+import { Loading } from '@/components/Loading';
+import { Table } from '@/components/Table';
+import { ReservasContext } from '@/contexts/ReservasContext';
 import { use } from 'react';
-import { Table } from '../components/Table';
-import { ReservasContext } from '../contexts/ReservasContext';
-import { Loading } from '../components/Loading';
 
 export function ReservasPage() {
   document.title =
