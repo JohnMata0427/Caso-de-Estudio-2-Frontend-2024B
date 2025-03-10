@@ -7,7 +7,7 @@ export function ReservasPage() {
   document.title =
     'Reservas Dashboard • Sistema de Gestión de Renta de Vehículos';
 
-  const { reservas, loadingData } = use(ReservasContext);
+  const { reservas, loadingData, ...handleActions } = use(ReservasContext);
 
   return (
     <>
@@ -18,7 +18,7 @@ export function ReservasPage() {
           las reservas realizadas por los clientes.
         </p>
       </div>
-      {loadingData ? <Loading /> : <Table title="reservas" data={reservas} />}
+      {loadingData ? <Loading /> : <Table title="reservas" data={reservas} {...handleActions} />}
     </>
   );
 }

@@ -10,20 +10,17 @@ interface ReservasResponse {
 interface ReservasContextData {
   reservas: Reserva[];
   loadingData: boolean;
-  handleCreateReserva: (reserva: Reserva) => Promise<ReservasResponse>;
-  handleUpdateReserva: (
-    id: string,
-    reserva: Reserva,
-  ) => Promise<ReservasResponse>;
-  handleDeleteReserva: (id: string) => Promise<void>;
+  handleCreate: (reserva: Reserva) => Promise<ReservasResponse>;
+  handleUpdate: (id: string, reserva: Reserva) => Promise<ReservasResponse>;
+  handleDelete: (id: string) => Promise<ReservasResponse>;
 }
 
 export const ReservasContext = createContext<ReservasContextData>({
   reservas: [],
   loadingData: true,
-  handleCreateReserva: async () => ({}) as ReservasResponse,
-  handleUpdateReserva: async () => ({}) as ReservasResponse,
-  handleDeleteReserva: async () => {},
+  handleCreate: async () => ({}) as ReservasResponse,
+  handleUpdate: async () => ({}) as ReservasResponse,
+  handleDelete: async () => ({}) as ReservasResponse,
 });
 
 export function ReservasProvider({ children }: { children: React.ReactNode }) {
@@ -42,7 +39,7 @@ export function ReservasProvider({ children }: { children: React.ReactNode }) {
     setLoadingData(false);
   }, []);
 
-  const handleCreateReserva = useCallback(async (reserva: Reserva) => {
+  const handleCreate = useCallback(async (reserva: Reserva) => {
     const response = await fetch(`${VITE_BACKEND_URL}/reservas`, {
       method: 'POST',
       headers,
@@ -55,30 +52,30 @@ export function ReservasProvider({ children }: { children: React.ReactNode }) {
     return data;
   }, []);
 
-  const handleUpdateReserva = useCallback(
-    async (id: string, reserva: Reserva) => {
-      const response = await fetch(`${VITE_BACKEND_URL}/reservas/${id}`, {
-        method: 'PUT',
-        headers,
-        body: JSON.stringify(reserva),
-      });
-      const data = await response.json();
+  const handleUpdate = useCallback(async (id: string, reserva: Reserva) => {
+    const response = await fetch(`${VITE_BACKEND_URL}/reserva/${id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(reserva),
+    });
+    const data = await response.json();
 
-      if (response.ok)
-        setReservas(state => state.map(c => (c._id === id ? data.reserva : c)));
+    if (response.ok)
+      setReservas(state => state.map(r => (r._id === id ? data.reserva : r)));
 
-      return data;
-    },
-    [],
-  );
+    return data;
+  }, []);
 
-  const handleDeleteReserva = useCallback(async (id: string) => {
-    await fetch(`${VITE_BACKEND_URL}/reservas/${id}`, {
+  const handleDelete = useCallback(async (id: string) => {
+    const response = await fetch(`${VITE_BACKEND_URL}/reserva/${id}`, {
       method: 'DELETE',
       headers,
     });
+    const data = await response.json();
 
-    setReservas(state => state.filter(c => c._id !== id));
+    if (response.ok) setReservas(state => state.filter(r => r._id !== id));
+
+    return data;
   }, []);
 
   useEffect(() => {
@@ -90,9 +87,9 @@ export function ReservasProvider({ children }: { children: React.ReactNode }) {
       value={{
         reservas,
         loadingData,
-        handleCreateReserva,
-        handleUpdateReserva,
-        handleDeleteReserva,
+        handleCreate,
+        handleUpdate,
+        handleDelete,
       }}
     >
       {children}

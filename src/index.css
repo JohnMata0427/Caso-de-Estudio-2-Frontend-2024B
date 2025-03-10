@@ -39,17 +39,17 @@
   --animate-shimmer: shimmer 4s linear infinite;
   --animate-slide-out-left: slideOutLeft 0.6s forwards;
   --animate-slide-in-right: slideInRight 0.6s forwards;
-  --color-lust-50: #fedddf;
-  --color-lust-100: #fcbabf;
-  --color-lust-200: #f9767f;
-  --color-lust-300: #f62d3a;
-  --color-lust-400: #d20916;
-  --color-lust-500: #8e060e;
-  --color-lust-600: #71050c;
-  --color-lust-700: #530409;
-  --color-lust-800: #3b0206;
-  --color-lust-900: #1d0103;
-  --color-lust-950: #0f0102;
+  --color-falu-red-50: #fbe0e2;
+  --color-falu-red-100: #f6c0c4;
+  --color-falu-red-200: #ed7d85;
+  --color-falu-red-300: #e43f4a;
+  --color-falu-red-400: #c01b26;
+  --color-falu-red-500: #7f1219;
+  --color-falu-red-600: #670f14;
+  --color-falu-red-700: #4c0b0f;
+  --color-falu-red-800: #31070a;
+  --color-falu-red-900: #1b0405;
+  --color-falu-red-950: #0d0203;
 
   --color-vulcan-50: #eae8ed;
   --color-vulcan-100: #d2ced9;
@@ -74,14 +74,14 @@
   border-radius: var(--radius-lg);
 }
 
-.bg-shimmer-lust {
+.bg-shimmer-falu-red {
   background: linear-gradient(
     120deg,
-    var(--color-lust-900),
+    var(--color-falu-red-800),
     50%,
-    var(--color-lust-400),
+    var(--color-falu-red-400),
     55%,
-    var(--color-lust-900)
+    var(--color-falu-red-800)
   );
   background-size: 200% 100%;
 }
@@ -89,11 +89,11 @@
 .bg-shimmer-vulcan {
   background: linear-gradient(
     120deg,
-    var(--color-vulcan-900),
+    var(--color-vulcan-800),
     50%,
     var(--color-vulcan-400),
     55%,
-    var(--color-vulcan-900)
+    var(--color-vulcan-800)
   );
   background-size: 200% 100%;
 }

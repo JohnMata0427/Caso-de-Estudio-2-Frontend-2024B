@@ -7,7 +7,7 @@ export function VehiculosPage() {
   document.title =
     'Vehículos Dashboard • Sistema de Gestión de Renta de Vehículos';
 
-  const { vehiculos, loadingData } = use(VehiculosContext);
+  const { vehiculos, loadingData, ...handleActions } = use(VehiculosContext);
 
   return (
     <>
@@ -18,7 +18,11 @@ export function VehiculosPage() {
           gestionar los vehículos de la empresa.
         </p>
       </div>
-      {loadingData ? <Loading /> : <Table title="vehiculos" data={vehiculos} />}
+      {loadingData ? (
+        <Loading />
+      ) : (
+        <Table title="vehiculos" data={vehiculos} {...handleActions} />
+      )}
     </>
   );
 }

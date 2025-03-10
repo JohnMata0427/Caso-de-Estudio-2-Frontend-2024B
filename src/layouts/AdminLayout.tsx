@@ -16,7 +16,7 @@ export function AdminLayout() {
   return (
     <main className="flex min-h-dvh w-dvw">
       <header
-        className={`flex flex-col justify-between rounded-r-lg bg-white p-5 ${showMenu ? 'animate-slide-in-right' : 'animate-slide-out-left fixed h-full'}`}
+        className={`flex flex-col justify-between rounded-r-lg bg-white p-5 z-10 ${showMenu ? 'animate-slide-in-right' : 'animate-slide-out-left fixed h-full'}`}
       >
         <div className="flex flex-col gap-y-2">
           <div className="flex justify-between">
@@ -33,12 +33,12 @@ export function AdminLayout() {
               </svg>
             </button>
             <button
-              className="text-lust-500 hover:bg-lust-50 flex cursor-pointer items-center gap-x-1 rounded-lg p-1 text-sm transition-colors duration-300"
+              className="text-falu-red-500 hover:bg-falu-red-50 flex cursor-pointer items-center gap-x-1 rounded-lg p-1 text-sm transition-colors duration-300"
               onClick={logout}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="fill-lust-500 size-4"
+                className="fill-falu-red-500 size-4"
                 viewBox="0 -960 960 960"
               >
                 <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200z" />

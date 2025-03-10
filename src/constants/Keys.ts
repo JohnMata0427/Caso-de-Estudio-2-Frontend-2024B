@@ -1,4 +1,9 @@
-export type Title = 'clientes' | 'vehiculos' | 'reservas';
+import type { Cliente } from "@/interfaces/Cliente";
+import type { Reserva } from "@/interfaces/Reserva";
+import type { Vehiculo } from "@/interfaces/Vehiculo";
+
+export type SystemTitle = 'clientes' | 'vehiculos' | 'reservas';
+export type SystemData = Cliente | Vehiculo | Reserva;
 
 interface Fields {
   [key: string]: {
@@ -9,7 +14,7 @@ interface Fields {
   };
 }
 
-export const INPUT_FIELDS: Record<Title, Fields> = {
+export const INPUT_FIELDS: Record<SystemTitle, Fields> = {
   clientes: {
     nombre: {
       type: 'text',
@@ -62,18 +67,17 @@ export const INPUT_FIELDS: Record<Title, Fields> = {
     },
     placa: {
       type: 'text',
-      placeholder: 'ABCD-1234',
+      placeholder: 'ABC-1234',
     },
     color: {
-      type: 'text',
-      placeholder: 'Rojo',
+      type: 'color',
     },
     tipo_vehiculo: {
       type: 'text',
       placeholder: 'Sedán',
     },
     kilometraje: {
-      type: 'number',
+      type: 'text',
       placeholder: '81km - 102km',
     },
     descripcion: {
@@ -101,7 +105,7 @@ export const INPUT_FIELDS: Record<Title, Fields> = {
   },
 };
 
-export const COLUMN_NAMES: Record<Title, string[]> = {
+export const COLUMN_NAMES: Record<SystemTitle, string[]> = {
   clientes: [
     'ID',
     'Cedula',

@@ -4,6 +4,11 @@ import { createContext, useCallback, useEffect, useState } from 'react';
 
 type TypeResponse = 'success' | 'error';
 
+interface LoginRequest {
+  email: string;
+  password: string;
+}
+
 interface LoginResponse {
   response: string;
   type: TypeResponse;
@@ -19,7 +24,7 @@ interface AuthContextData {
 
 export const AuthContext = createContext<AuthContextData>({
   user: null,
-  handleLogin: async () => ({ response: '', type: 'error' }),
+  handleLogin: async (_: LoginRequest) => ({ response: '', type: 'error' }),
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -27,10 +32,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const token = localStorage.getItem('token');
 
   const handleLogin = useCallback(
-    async (login: {
-      email: string;
-      password: string;
-    }): Promise<LoginResponse> => {
+    async (login: LoginRequest): Promise<LoginResponse> => {
       const response = await fetch(`${VITE_BACKEND_URL}/auth/login`, {
         method: 'POST',
         headers: {

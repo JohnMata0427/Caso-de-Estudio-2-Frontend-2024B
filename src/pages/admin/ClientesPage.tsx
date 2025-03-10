@@ -7,7 +7,7 @@ export function ClientesPage() {
   document.title =
     'Clientes Dashboard • Sistema de Gestión de Renta de Vehículos';
 
-  const { clientes, loadingData } = use(ClientesContext);
+  const { clientes, loadingData, ...handleActions } = use(ClientesContext);
 
   return (
     <>
@@ -18,7 +18,11 @@ export function ClientesPage() {
           los clientes de la empresa.
         </p>
       </div>
-      {loadingData ? <Loading /> : <Table title="clientes" data={clientes} />}
+      {loadingData ? (
+        <Loading />
+      ) : (
+        <Table title="clientes" data={clientes} {...handleActions} />
+      )}
     </>
   );
 }

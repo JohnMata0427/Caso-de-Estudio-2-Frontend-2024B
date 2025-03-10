@@ -13,15 +13,18 @@ export function LoginPage() {
     _: string,
     formData: FormData,
   ): Promise<string> => {
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
+    const data = Object.fromEntries(formData.entries()) as any;
 
-    const { response, type } = await handleLogin({ email, password });
+    const { response, type } = await handleLogin(data);
 
     toast[type](response, {
-      position: 'bottom-right',
+      position: 'bottom-left',
       icon: '🔐',
       className: 'text-sm font-medium',
+      style: {
+        background: 'var(--color-vulcan-800)',
+        color: 'var(--color-vulcan-50)',
+      },
     });
 
     if (type === 'success') navigate('/admin/clientes');
@@ -34,7 +37,7 @@ export function LoginPage() {
   return (
     <form className="flex w-2/3 flex-col gap-y-4" action={submitAction}>
       <div className="flex flex-col gap-y-2">
-        <h1 className="text-lust-800 text-center text-2xl font-extrabold">
+        <h1 className="text-center text-2xl font-extrabold">
           Sistema de Gestión de Renta de Vehículos
         </h1>
         <small className="text-vulcan-500 text-center text-xs">
@@ -46,13 +49,13 @@ export function LoginPage() {
         {/* Contact Email Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-lust-800 absolute inset-y-0 left-3 my-auto size-5"
+          className="fill-vulcan-800 absolute inset-y-0 left-3 my-auto size-5"
           viewBox="0 -960 960 960"
         >
           <path d="M528-480h288v-192H528zm144-41-108-72v-43l108 72 108-72v43zM72-144q-30 0-51-21T0-216v-528q0-30 21-51t51-21h816q30 0 51 21t21 51v528q0 30-21 51t-51 21zm264-240q50 0 85-35t35-85-35-85-85-35-85 35-35 85 35 85 85 35M72-216h521q-51-54-116-87t-141-33-144 33-120 87" />
         </svg>
         <input
-          className="border-vulcan-200 outline-lust-800 w-full rounded-lg border py-1.5 pr-1.5 pl-10 text-sm"
+          className="border-vulcan-200 outline-vulcan-800 w-full rounded-lg border py-1.5 pr-1.5 pl-10 text-sm"
           id="email"
           type="email"
           name="email"
@@ -64,13 +67,13 @@ export function LoginPage() {
         {/* Password Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-lust-800 absolute inset-y-0 left-3 my-auto size-5"
+          className="fill-vulcan-800 absolute inset-y-0 left-3 my-auto size-5"
           viewBox="0 -960 960 960"
         >
           <path d="M288-360q50 0 85-35t35-85-35-85-85-35-85 35-35 85 35 85 85 35m0 120q-100 0-170-70T48-480t70-170 170-70q78 0 141 47t87 121h324l72 72-132 159-84-87-72 72-72-72h-36q-24 75-87 122-63 46-141 46" />
         </svg>
         <input
-          className="border-vulcan-200 outline-lust-800 w-full rounded-lg border px-10 py-1.5 text-sm"
+          className="border-vulcan-200 outline-vulcan-800 w-full rounded-lg border px-10 py-1.5 text-sm"
           id="password"
           name="password"
           type={showPassword ? 'text' : 'password'}
@@ -81,7 +84,7 @@ export function LoginPage() {
         {/* Show Password Icon */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="fill-lust-800 absolute inset-y-0 right-3 my-auto size-5 cursor-pointer"
+          className="fill-vulcan-800 absolute inset-y-0 right-3 my-auto size-5 cursor-pointer"
           viewBox="0 -960 960 960"
           onClick={() => setShowPassword(!showPassword)}
         >
@@ -94,6 +97,7 @@ export function LoginPage() {
       </div>
       <ShimmerButton
         moreStyles="flex gap-x-2 items-center justify-center"
+        color="vulcan"
         disabled={isPending}
       >
         Iniciar sesión

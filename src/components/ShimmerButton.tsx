@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-type Colors = 'lust' | 'vulcan';
+type Colors = 'falu-red' | 'vulcan';
 
 interface Props {
   children: React.ReactNode;
@@ -15,11 +15,11 @@ export const ShimmerButton = memo(
     onClick,
     children,
     moreStyles = '',
-    color = 'lust',
+    color = 'falu-red',
     disabled = false,
   }: Props) => {
     const colorClasses: Record<Colors, string> = {
-      lust: 'bg-shimmer-lust border-lust-700',
+      'falu-red': 'bg-shimmer-falu-red border-falu-red-700',
       vulcan: 'bg-shimmer-vulcan border-vulcan-700',
     };
 

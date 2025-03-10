@@ -10,20 +10,17 @@ interface ClientesResponse {
 interface ClientesContextData {
   clientes: Cliente[];
   loadingData: boolean;
-  handleCreateCliente: (cliente: Cliente) => Promise<Partial<ClientesResponse>>;
-  handleUpdateCliente: (
-    id: string,
-    cliente: Cliente,
-  ) => Promise<Partial<ClientesResponse>>;
-  handleDeleteCliente: (id: string) => Promise<void>;
+  handleCreate: (cliente: Cliente) => Promise<ClientesResponse>;
+  handleUpdate: (id: string, cliente: Cliente) => Promise<ClientesResponse>;
+  handleDelete: (id: string) => Promise<ClientesResponse>;
 }
 
 export const ClientesContext = createContext<ClientesContextData>({
   clientes: [],
   loadingData: true,
-  handleCreateCliente: async () => ({}),
-  handleUpdateCliente: async () => ({}),
-  handleDeleteCliente: async () => {},
+  handleCreate: async () => ({} as ClientesResponse),
+  handleUpdate: async () => ({} as ClientesResponse),
+  handleDelete: async () => ({} as ClientesResponse),
 });
 
 export function ClientesProvider({ children }: { children: React.ReactNode }) {
@@ -42,7 +39,7 @@ export function ClientesProvider({ children }: { children: React.ReactNode }) {
     setLoadingData(false);
   }, []);
 
-  const handleCreateCliente = useCallback(async (cliente: Cliente) => {
+  const handleCreate = useCallback(async (cliente: Cliente) => {
     const response = await fetch(`${VITE_BACKEND_URL}/clientes`, {
       method: 'POST',
       headers,
@@ -55,30 +52,30 @@ export function ClientesProvider({ children }: { children: React.ReactNode }) {
     return data;
   }, []);
 
-  const handleUpdateCliente = useCallback(
-    async (id: string, cliente: Cliente) => {
-      const response = await fetch(`${VITE_BACKEND_URL}/clientes/${id}`, {
-        method: 'PUT',
-        headers,
-        body: JSON.stringify(cliente),
-      });
-      const data = await response.json();
+  const handleUpdate = useCallback(async (id: string, cliente: Cliente) => {
+    const response = await fetch(`${VITE_BACKEND_URL}/cliente/${id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(cliente),
+    });
+    const data = await response.json();
 
-      if (response.ok)
-        setClientes(state => state.map(c => (c._id === id ? data.cliente : c)));
+    if (response.ok)
+      setClientes(state => state.map(c => (c._id === id ? data.cliente : c)));
 
-      return data;
-    },
-    [],
-  );
+    return data;
+  }, []);
 
-  const handleDeleteCliente = useCallback(async (id: string) => {
-    await fetch(`${VITE_BACKEND_URL}/clientes/${id}`, {
+  const handleDelete = useCallback(async (id: string) => {
+    const response = await fetch(`${VITE_BACKEND_URL}/cliente/${id}`, {
       method: 'DELETE',
       headers,
     });
+    const data = await response.json();
 
-    setClientes(state => state.filter(c => c._id !== id));
+    if (response.ok) setClientes(state => state.filter(c => c._id !== id));
+
+    return data;
   }, []);
 
   useEffect(() => {
@@ -90,9 +87,9 @@ export function ClientesProvider({ children }: { children: React.ReactNode }) {
       value={{
         clientes,
         loadingData,
-        handleCreateCliente,
-        handleUpdateCliente,
-        handleDeleteCliente,
+        handleCreate,
+        handleUpdate,
+        handleDelete,
       }}
     >
       {children}

@@ -10,20 +10,17 @@ interface VehiculosResponse {
 interface VehiculosContextData {
   vehiculos: Vehiculo[];
   loadingData: boolean;
-  handleCreateVehiculo: (vehiculo: Vehiculo) => Promise<VehiculosResponse>;
-  handleUpdateVehiculo: (
-    id: string,
-    vehiculo: Vehiculo,
-  ) => Promise<VehiculosResponse>;
-  handleDeleteVehiculo: (id: string) => Promise<void>;
+  handleCreate: (vehiculo: Vehiculo) => Promise<VehiculosResponse>;
+  handleUpdate: (id: string, vehiculo: Vehiculo) => Promise<VehiculosResponse>;
+  handleDelete: (id: string) => Promise<VehiculosResponse>;
 }
 
 export const VehiculosContext = createContext<VehiculosContextData>({
   vehiculos: [],
   loadingData: true,
-  handleCreateVehiculo: async () => ({}) as VehiculosResponse,
-  handleUpdateVehiculo: async () => ({}) as VehiculosResponse,
-  handleDeleteVehiculo: async () => {},
+  handleCreate: async () => ({}) as VehiculosResponse,
+  handleUpdate: async () => ({}) as VehiculosResponse,
+  handleDelete: async () => ({}) as VehiculosResponse,
 });
 
 export function VehiculosProvider({ children }: { children: React.ReactNode }) {
@@ -42,7 +39,7 @@ export function VehiculosProvider({ children }: { children: React.ReactNode }) {
     setLoadingData(false);
   }, []);
 
-  const handleCreateVehiculo = useCallback(async (vehiculo: Vehiculo) => {
+  const handleCreate = useCallback(async (vehiculo: Vehiculo) => {
     const response = await fetch(`${VITE_BACKEND_URL}/vehiculos`, {
       method: 'POST',
       headers,
@@ -55,32 +52,30 @@ export function VehiculosProvider({ children }: { children: React.ReactNode }) {
     return data;
   }, []);
 
-  const handleUpdateVehiculo = useCallback(
-    async (id: string, vehiculo: Vehiculo) => {
-      const response = await fetch(`${VITE_BACKEND_URL}/vehiculos/${id}`, {
-        method: 'PUT',
-        headers,
-        body: JSON.stringify(vehiculo),
-      });
-      const data = await response.json();
+  const handleUpdate = useCallback(async (id: string, vehiculo: Vehiculo) => {
+    const response = await fetch(`${VITE_BACKEND_URL}/vehiculo/${id}`, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(vehiculo),
+    });
+    const data = await response.json();
 
-      if (response.ok)
-        setVehiculos(state =>
-          state.map(c => (c._id === id ? data.vehiculo : c)),
-        );
+    if (response.ok)
+      setVehiculos(state => state.map(v => (v._id === id ? data.vehiculo : v)));
 
-      return data;
-    },
-    [],
-  );
+    return data;
+  }, []);
 
-  const handleDeleteVehiculo = useCallback(async (id: string) => {
-    await fetch(`${VITE_BACKEND_URL}/vehiculos/${id}`, {
+  const handleDelete = useCallback(async (id: string) => {
+    const response = await fetch(`${VITE_BACKEND_URL}/vehiculo/${id}`, {
       method: 'DELETE',
       headers,
     });
+    const data = await response.json();
 
-    setVehiculos(state => state.filter(c => c._id !== id));
+    if (response.ok) setVehiculos(state => state.filter(v => v._id !== id));
+
+    return data;
   }, []);
 
   useEffect(() => {
@@ -92,9 +87,9 @@ export function VehiculosProvider({ children }: { children: React.ReactNode }) {
       value={{
         vehiculos,
         loadingData,
-        handleCreateVehiculo,
-        handleUpdateVehiculo,
-        handleDeleteVehiculo,
+        handleCreate,
+        handleUpdate,
+        handleDelete,
       }}
     >
       {children}

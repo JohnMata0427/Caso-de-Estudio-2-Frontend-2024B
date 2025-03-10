@@ -1,11 +1,11 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { LoginPage } from './pages/LoginPage';
+import { LoginPage } from './pages/auth/LoginPage';
 import { AuthLayout } from './layouts/AuthLayout';
 import { AuthProvider } from './contexts/AuthContext';
 import { AdminLayout } from './layouts/AdminLayout';
-import { ClientesPage } from './pages/ClientesPage';
-import { VehiculosPage } from './pages/VehiculosPage';
-import { ReservasPage } from './pages/ReservasPage';
+import { ClientesPage } from './pages/admin/ClientesPage';
+import { VehiculosPage } from './pages/admin/VehiculosPage';
+import { ReservasPage } from './pages/admin/ReservasPage';
 import { ClientesProvider } from './contexts/ClientesContext';
 import { VehiculosProvider } from './contexts/VehiculosContext';
 import { ReservasProvider } from './contexts/ReservasContext';
